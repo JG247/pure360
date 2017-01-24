@@ -1,0 +1,75 @@
+<ul class="list-group">
+  <li ng-repeat="email in vm.emails" class="list-group-item">
+      <div class="container">
+        <div class="row">
+            <span class="col-xs-2">
+                {{ email.name }}
+            </span>
+            <span class="col-xs-3">
+                <span ng-repeat="subject in email.subjects">
+                    {{subject}}
+                </span>
+            </span>
+            <span class="col-xs-2">
+                <a href="/#!/{{email.id}}" data-toggle="modal" data-target="#myModal" type="button" ng-click="vm.getEmail(email.id)" id="id{{email.id}}" class="btn btn-primary">More <span class="glyphicon glyphicon-envelope"></span></a>
+            </span>                    
+        </div>
+      </div>
+  </li>
+</ul>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="width" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="row">
+            <div class="col-md-2">
+                <label>Message name:</label>
+            </div>
+            <div id="emailName" class="col-md-8">
+            {{ vm.currentEmail.data.name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>Subject line:</label>
+            </div>
+            <div class="col-md-8">
+            <span id="emailSubject" ng-repeat="subject in vm.currentEmail.data.subjects">
+                {{subject}}
+            </span>                     
+            </div>
+        </div>   
+        <div class="row">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a id="htmlMode" href="#html" aria-controls="html" role="tab" data-toggle="tab">HTML</a></li>
+                <li role="presentation"><a href="#plain" id="plainMode" aria-controls="plain" role="tab" data-toggle="tab">Plain text</a></li>
+            </ul>           
+        </div>   
+      </div>
+    
+      <div class="modal-body">
+
+
+        <div>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="html">
+                    <div id="emailHtml"></div> 
+                </div>
+                <div role="tabpanel" class="tab-pane" id="plain">
+                    <div contenteditable="true"  id="emailPlain">{{ vm.currentEmail.data.body.html }}</div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
